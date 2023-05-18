@@ -1,15 +1,11 @@
 using System;
+using System.Collections;
+
 namespace Pestud
 {
-    public class AgEst : Data
+    public class AgEst : Material
     {
-        public Material Conteudo { get; set; }
-        public Data Time { get; set; }
-
-        public Data DiaRevisao { get; set; }
-
-
-        
-
+        public IEnumerable<Material> Conteudo { get; set; }
+    
     }
 }

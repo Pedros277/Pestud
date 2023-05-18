@@ -1,16 +1,18 @@
 using System;
 namespace Pestud
 {  
-    public class Revsao : Tempo
+    public class Revisao : Material
 {
-    public  Material Revisar { get; set; }
-    public void Revisa(Material Revisado)
+    
+    public  Material Materia { get; set; }
+    public void DiaRevisar(Material materia)
     {
-        if (Revisado.Dia == DateTime.Now)
+        if (materia.DiaRev == DateTime.Now)
         {
-            Console.WriteLine("Dia de revisar conteúdo!!");
-            Console.WriteLine(Revisado.Materia);
+            Console.WriteLine("Dia de revisão!!!");
+            Console.WriteLine(materia.Materia);
         }
     }
+    
 }
 }

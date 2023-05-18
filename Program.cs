@@ -3,8 +3,10 @@ namespace Pestud
 {
     class Program
     {
-        static void Mian(string[] args)
+        static void Main(string[] args)
         {
+            var tempo = new Contador();
+            tempo.PreInicio();
             
         }
     }

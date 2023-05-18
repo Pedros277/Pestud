@@ -1,0 +1,15 @@
+D:\Proj\Pestud\obj\Debug\net6.0\Pestud.csproj.AssemblyReference.cache
+D:\Proj\Pestud\obj\Debug\net6.0\Pestud.GeneratedMSBuildEditorConfig.editorconfig
+D:\Proj\Pestud\obj\Debug\net6.0\Pestud.AssemblyInfoInputs.cache
+D:\Proj\Pestud\obj\Debug\net6.0\Pestud.AssemblyInfo.cs
+D:\Proj\Pestud\obj\Debug\net6.0\Pestud.csproj.CoreCompileInputs.cache
+D:\Proj\Pestud\bin\Debug\net6.0\Pestud.exe
+D:\Proj\Pestud\bin\Debug\net6.0\Pestud.deps.json
+D:\Proj\Pestud\bin\Debug\net6.0\Pestud.runtimeconfig.json
+D:\Proj\Pestud\bin\Debug\net6.0\Pestud.dll
+D:\Proj\Pestud\bin\Debug\net6.0\Pestud.pdb
+D:\Proj\Pestud\obj\Debug\net6.0\Pestud.dll
+D:\Proj\Pestud\obj\Debug\net6.0\refint\Pestud.dll
+D:\Proj\Pestud\obj\Debug\net6.0\Pestud.pdb
+D:\Proj\Pestud\obj\Debug\net6.0\Pestud.genruntimeconfig.cache
+D:\Proj\Pestud\obj\Debug\net6.0\ref\Pestud.dll
