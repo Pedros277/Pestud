@@ -5,8 +5,10 @@ namespace Pestud
     {
         static void Main(string[] args)
         {
-            var tempo = new Contador();
+            var tempo = new Tempo();
             tempo.PreInicio();
+            
+            
             
         }
     }

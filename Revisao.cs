@@ -1,7 +1,7 @@
 using System;
 namespace Pestud
 {  
-    public class Revisao : Material
+    public class Revisao 
 {
     
     public  Material Materia { get; set; }

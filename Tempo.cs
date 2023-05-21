@@ -1,55 +1,76 @@
 using System;
+using System.IO;
 namespace Pestud
 {
-    public class Contador 
+    public class Tempo : Material
     {
-        public Contador()
+        public Tempo()
         {
             Inicial = new TimeSpan((int)DateTime.Now.Hour,(int)DateTime.Now.Minute,(int)DateTime.Now.Second);
-            Final = new TimeSpan(00,00,00);
+            TempoDePausa = new TimeSpan(00,00,00);
         }
+        public TimeSpan TempoDePausa { get; set; }
         public TimeSpan Final { get; set; }
         public TimeSpan Inicial { get; private set; }
-          public void PreInicio()
+        public void PreInicio()
         {
-            var atual = new TimeSpan((int)DateTime.Now.Hour,(int)DateTime.Now.Minute,(int)DateTime.Now.Second);
-            var fim = new TimeSpan(00,00,00);
-            Inicio(atual,fim);
-        }
-        public void Inicio(TimeSpan inicio, TimeSpan fim)
-        {
+            
             Console.Clear();
-            Console.WriteLine($"Inicio : {inicio}");
+            Console.WriteLine("Tudo Pronto?");
+            Console.WriteLine("Digite '1' para Iniciar.");
+            Console.WriteLine("Digite '0' para sair.");
+            var escolha = Console.ReadLine();
+            switch(escolha)
+            {
+                case "1": PosInicio();break;
+                case "0" : System.Environment.Exit(0);break;
+                
+                default: PreInicio();break; 
+            }
+        }
+          public void PosInicio()
+        {   
+            var material = new Material();
+            
+            Inicio(material);
+        }
+        public void Inicio( Material material)
+        {
+            material.Dia = DateTime.Now;
+            Console.Clear();
+            Console.WriteLine($"Inicio : {Inicial}");
             Console.WriteLine("Digite ('p') para uma pausa.");
             Console.WriteLine("Digite ('q') para finalizar.");
             Console.WriteLine("Digite ('t') para ver o tempo corrido");
+            Console.WriteLine("Digite ('a') para adicionar anotações");
             string escolha = Console.ReadLine().ToLower();
             
             
             switch (escolha)
             {
-                case "p": Pausa(inicio,fim);break;
-                case "q": Fim(inicio, fim);break;
-                case "t": Tempo(inicio,fim);break;
-                default : Inicio(inicio,fim);break;
+                case "p": Pausa(material);break;
+                case "q": Fim(material);break;
+                case "t": Temp(material);break;
+                case "a": Anot(material);break;
+                default : Inicio(material);break;
             }
            
             
         }
-        public void Tempo(TimeSpan inicio, TimeSpan fim)
+        public void Temp(Material material)
         {
             Console.Clear();
             var atual = new TimeSpan((int)DateTime.Now.Hour,(int)DateTime.Now.Minute,(int)DateTime.Now.Second);
-            atual += fim;
-            var corrido = atual - inicio;
+            atual += TempoDePausa;
+            var corrido = atual - Inicial;
             Console.WriteLine(corrido);
             Thread.Sleep(2000);
-            Inicio(inicio, fim);
+            Inicio(material);
 
 
         }
       
-     public void Pausa(TimeSpan inicio, TimeSpan fim)
+     public void Pausa(Material material)
         {
             Console.Clear();
             
@@ -58,42 +79,60 @@ namespace Pestud
             Console.ReadKey();
             var ho1 = new TimeSpan((int)DateTime.Now.Hour,(int)DateTime.Now.Minute,(int)DateTime.Now.Second);
             var pausa = ho1 - atual;
-            fim -= pausa;
-            Inicio(inicio, fim);
+            TempoDePausa -= pausa;
+            Inicio(material);
         }
     
-        public void Fim(TimeSpan inicio, TimeSpan fim)
+        public void Fim(Material material)
         {
             Console.Clear();
             var atual = new TimeSpan((int)DateTime.Now.Hour,(int)DateTime.Now.Minute,(int)DateTime.Now.Second);
-            var final = atual + fim;
-            var termino = final - inicio;
+            var final = atual + TempoDePausa;
+             Final = final - Inicial;
             Console.WriteLine("Tempo marcado:");
-            Console.WriteLine(termino);
+            Console.WriteLine(Final);
             Console.ReadLine();
-            Materia(termino);
+            Materia(material);
         }
-        public void Materia(TimeSpan termino)
-        {Console.WriteLine("Digite o material:");
+        public void Anot (Material material)
+        {
+            Console.Clear();
+            var test = Console.ReadLine();
+            material.Anotacoes += test;
+            material.Anotacoes += "\n";
             
-            string material = Console.ReadLine();
+            Inicio(material);
+        }
+        public void Materia(Material material)
+        
+        {
+            
+            Console.WriteLine("Digite o material:");         
+            material.Materia = Console.ReadLine();
             Console.Clear();
             Console.WriteLine("Arquivo salvo.");
             var data = DateTime.Now.ToString("d");
-            string id =$"{data} - {termino} => {material} \n";
-
-            Salvar(id);
+            string id =$"{material.Dia.ToString("d")} - {Final} => {material.Materia} \n";
+            string path = @"D:\Proj\Pestud\registro.txt";
+            string pathAnot = $@"D:\Proj\Pestud\Anot\{material.Materia}.txt";
+             string idAnot = $@"{material.Materia}
+{material.Anotacoes}";
+            using (var myFile = File.Create(pathAnot))
+            {
+               
+            }
+            Salvar(id,path);
+            Salvar(idAnot,pathAnot);
             MenuDois(material);
             
         }
-        public string Salvar(string id)
+        public string Salvar(string id, string path)
         {   Console.Clear();
             string arquivo = "";
-            string path = @"D:\Proj\Pestud\teste.txt";
-            
             Console.WriteLine(id);
             using(var file = new StreamReader(path))
             {
+                
                 arquivo = file.ReadToEnd();
                 
             }
@@ -108,8 +147,9 @@ namespace Pestud
             return id;
             
         }
-        public void MenuDois(string material)
+        public void MenuDois(Material material)
         {
+
             Console.Clear();
             Console.WriteLine("Digite '1' para agendar revisão:");
             Console.WriteLine("Digite '0' para voltar ao Menu.");
@@ -117,6 +157,7 @@ namespace Pestud
             switch(escolha)
             {
                 case "1": Agenda(material);break;
+                case "0": PreInicio();break;
                 
                 default: MenuDois(material);break; 
             }
@@ -124,18 +165,21 @@ namespace Pestud
 
 
         }
-        public void Agenda(string material)
+        public void Agenda(Material material)
         {
            Console.Clear();
            Console.WriteLine("Digite o numero de dias para a proxima revisão:");
            int time = int.Parse(Console.ReadLine());
-           var atual = DateTime.Now;
-           var data = atual.AddDays(time);
+           var x = material.DiaRev.AddDays(time);
+           material.DiaRev = x;
            var fim = new TimeSpan();
-           string id =$"{data} => {material} (Revisão) \n";
-           Salvar(id);
+           string id =$"(Revisão) {material.DiaRev.ToString("d")} => {material.Materia} \n";
+           string path = @"D:\Proj\Pestud\registro.txt";
+           Salvar(id, path);
+           
            
         }
+        
 
     }
 }
