@@ -96,10 +96,13 @@ namespace Pestud
         }
         public void Anot (Material material)
         {
+            var test = "";
             Console.Clear();
-            var test = Console.ReadLine();
+            do{ 
+            test = Console.ReadLine();
             material.Anotacoes += test;
-            material.Anotacoes += "\n";
+            material.Anotacoes += "\n";}
+            while(Console.ReadKey().Key != ConsoleKey.Escape);
             
             Inicio(material);
         }
@@ -114,7 +117,7 @@ namespace Pestud
             var data = DateTime.Now.ToString("d");
             string id =$"{material.Dia.ToString("d")} - {Final} => {material.Materia} \n";
             string path = @"D:\Proj\Pestud\registro.txt";
-            string pathAnot = $@"D:\Proj\Pestud\Anot\{material.Materia}.txt";
+            string pathAnot = $@"D:\Proj\Pestud\Anot\{material.Materia}.md";
              string idAnot = $@"{material.Materia}
 {material.Anotacoes}";
             using (var myFile = File.Create(pathAnot))

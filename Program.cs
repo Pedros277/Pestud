@@ -5,6 +5,7 @@ namespace Pestud
     {
         static void Main(string[] args)
         {
+            
             var tempo = new Tempo();
             tempo.PreInicio();
             

@@ -18,3 +18,9 @@
 20/05/2023 - 00:27:19 => Estrutura de maquinas (DL)  
 20/05/2023 - 00:09:54 => QFT (DL) Podcast  
  (Revisão) 27/05/2023 => QFT (DL) Podcast 
+22/05/2023 - 01:07:56 => QFT(DL)G.deProcesso 
+(Revisão) 23/05/2023 => QFT(DL)G.deProcesso 
+22/05/2023 - 00:44:49 => QFT(DL)G.deprocessos-final 
+(Revisão) 23/05/2023 => QFT(DL)G.deprocessos-final 
+22/05/2023 - 00:00:48 => nada 
+23/05/2023 - 00:01:02 => Algo 
