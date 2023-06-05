@@ -36,6 +36,10 @@ namespace Pestud
         }
         public void Inicio( Material material)
         {
+            var noti = new Noti();
+            noti.StartNotificationTimer();
+            
+            
             material.Dia = DateTime.Now;
             Console.Clear();
             Console.WriteLine($"Inicio : {Inicial}");
@@ -44,6 +48,7 @@ namespace Pestud
             Console.WriteLine("Digite ('t') para ver o tempo corrido");
             Console.WriteLine("Digite ('a') para adicionar anotações");
             string escolha = Console.ReadLine().ToLower();
+            
             
             
             switch (escolha)
@@ -57,14 +62,17 @@ namespace Pestud
            
             
         }
-        public void Temp(Material material)
+        public TimeSpan Temp(Material material)
         {
+
             Console.Clear();
             var atual = new TimeSpan((int)DateTime.Now.Hour,(int)DateTime.Now.Minute,(int)DateTime.Now.Second);
             atual += TempoDePausa;
             var corrido = atual - Inicial;
             Console.WriteLine(corrido);
             Thread.Sleep(2000);
+            return corrido;
+
             Inicio(material);
 
 
@@ -100,8 +108,10 @@ namespace Pestud
             Console.Clear();
             do{ 
             test = Console.ReadLine();
+            test += Environment.NewLine;
             material.Anotacoes += test;
-            material.Anotacoes += "\n";}
+            
+            }
             while(Console.ReadKey().Key != ConsoleKey.Escape);
             
             Inicio(material);
@@ -139,7 +149,7 @@ namespace Pestud
                 arquivo = file.ReadToEnd();
                 
             }
-            var rg = arquivo += id;
+            var rg = id += arquivo;
             using(var file = new StreamWriter(path))
             {
                 file.Write(rg);
@@ -177,7 +187,7 @@ namespace Pestud
            material.DiaRev = x;
            var fim = new TimeSpan();
            string id =$"(Revisão) {material.DiaRev.ToString("d")} => {material.Materia} \n";
-           string path = @"D:\Proj\Pestud\registro.txt";
+           string path = @"D:\Proj\Pestud\revisao.md";
            Salvar(id, path);
            
            
